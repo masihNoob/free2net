@@ -1,0 +1,63 @@
+#!/bin/bash
+DEVICE=$(ip tuntap show | awk ' {print $1} ')
+function delKoneksi(){
+    DELETED_ROUTE=$(ip route show | awk '/metric 5/ {print $1}')
+    if [ "$DELETED_ROUTE" != "" ]
+    then
+        sudo route del $DELETED_ROUTE gw 192.168.42.129 metric 5 && sudo route del default gw 10.0.0.2 metric 6 && sudo ip tuntap del dev tun0 mode tun
+    else
+        sudo route del default gw 10.0.0.2 metric 6 && sudo ip tuntap del dev tun0 mode tun
+    fi
+}
+
+trap delKoneksi SIGINT
+
+function buatKoneksi(){
+    SERVER_ADDR=$1
+    SERVER_ID=$2
+    DELETED_ROUTE=$(ip route show | awk '/metric 5/ {print $1}')
+    
+    if [ "$DEVICE" != "tun0:" ]
+    then
+        sudo ip tuntap add dev tun0 mode tun && sudo ifconfig tun0 10.0.0.1 netmask 255.255.255.0 && sudo route add default gw 10.0.0.2 metric 6 && sudo route add $SERVER_ADDR gw 192.168.42.129 metric 5
+        badvpn-tun2socks --tundev tun0 --netif-ipaddr 10.0.0.2 --netif-netmask 255.255.255.0 --socks-server-addr 127.0.0.1:1080 --loglevel 0 &
+        ss-local -c Documents/ssConf/config_$SERVER_ID.json
+    else
+        sudo route del $DELETED_ROUTE gw 192.168.42.129 metric 5 && sudo route add $SERVER_ADDR gw 192.168.42.129 metric 5
+        badvpn-tun2socks --tundev tun0 --netif-ipaddr 10.0.0.2 --netif-netmask 255.255.255.0 --socks-server-addr 127.0.0.1:1080 --loglevel 0 &
+        ss-local -c Documents/ssConf/config_$SERVER_ID.json
+    fi
+}
+
+function buatKoneksi1(){
+    SERVER_ADDR=$1
+    SERVER_ID=$2
+    
+        sudo ip tuntap add dev tun0 mode tun && sudo ifconfig tun0 10.0.0.1 netmask 255.255.255.0 && sudo route add default gw 10.0.0.2 metric 6 && sudo route add $SERVER_ADDR gw 192.168.42.129 metric 5
+        ss-local -c Documents/ssConf/config_$SERVER_ID.json &
+        badvpn-tun2socks --tundev tun0 --netif-ipaddr 10.0.0.2 --netif-netmask 255.255.255.0 --socks-server-addr 127.0.0.1:1080 --loglevel 0
+}
+case $1 in
+    id)
+        buatKoneksi1 "103.129.220.163" "id"
+        ;;
+    sg)
+        buatKoneksi1 "49.213.16.215" "sg"
+        ;;
+    sg2)
+        buatKoneksi1 "139.180.221.213" "sg2"
+        ;;
+    vn)
+        buatKoneksi1 "150.95.111.88" "vn"
+        ;;
+    th)
+        buatKoneksi1 "150.95.31.181" "th"
+        ;;
+    x)
+        delKoneksi
+        ;;
+    *)
+        echo "free2net 0.4 (development)"
+        echo please use correct input
+        ;; 
+esac
