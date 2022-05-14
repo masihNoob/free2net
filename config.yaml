@@ -93,7 +93,7 @@ proxy-groups:
     proxies:
       #- id-rackhtj.bonds.id
       #- ws22
-      #- id-lb.sshkit.org
+      - id-lb.sshkit.org
       - rhey_vmess_ws_tls
 
 rules:
