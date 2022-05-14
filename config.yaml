@@ -1,0 +1,100 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7893
+mixed-port: 7893
+mode: rule
+log-level: silent
+allow-lan: true
+external-controller: 0.0.0.0:9090
+bind-address: "*"
+ipv6: false
+dns:
+  enable: false
+  ipv6: false
+  enhanced-mode: redir-host
+  listen: 0.0.0.0:7894
+  fallback-filter:
+    geoip: false
+    ipcidr:
+      - 240.0.0.0/4
+
+tun:
+  enable: true
+  stack: system
+  macOS-auto-route: true
+  macOS-auto-detect-interface: true
+  dns-hijack:
+    - tcp://8.8.8.8:53
+experimental:
+  interface-name: en0
+
+proxies:
+  - {
+      name: id-lb.sshkit.org,
+      server: 41.216.178.204,
+      port: 80,
+      type: vmess,
+      uuid: 6fea1649-425b-4092-bf53-29792152c925,
+      sni: blog.joox.com,
+      alterId: 0,
+      cipher: none,
+      tls: false,
+      skip-cert-verify: true,
+      udp: true,
+      network: ws,
+      ws-opts:
+        {
+          path: /sshkit/lembayan/627f29ae79d4e/,
+          headers: { Host: blog.joox.com },
+        },
+    }
+  - {
+      name: "ws22",
+      server: 172.104.41.185,
+      port: 443,
+      udp: true,
+      type: trojan,
+      password: a6e05de0-bce7-11ec-b1ae-1239d0255272,
+      sni: blog.joox.com,
+      skip-cert-verify: true,
+    }
+  - {
+      name: rhey_vmess_ws_tls,
+      server: 54.151.240.47,
+      port: 80,
+      type: vmess,
+      uuid: 11fe3897-20a7-4ff2-a083-4dd5f3213c4c,
+      sni: music.joox.com,
+      alterId: 0,
+      cipher: none,
+      tls: false,
+      skip-cert-verify: true,
+      udp: true,
+      network: ws,
+      ws-opts: { path: /vmess-ws, headers: { Host: music.joox.com } },
+    }
+  - {
+      name: id-rackhtj.bonds.id,
+      server: 103.77.78.145,
+      port: 443,
+      udp: true,
+      type: trojan,
+      password: c2a0c870-cb33-11ec-a600-1239d0255272,
+      sni: music.joox.com,
+      skip-cert-verify: true,
+    }
+
+proxy-groups:
+  - name: sshkit-generator
+    type: select
+    url: "http://hi.bonds.id/ping"
+    interval: 300
+    proxies:
+      #- id-rackhtj.bonds.id
+      #- ws22
+      #- id-lb.sshkit.org
+      - rhey_vmess_ws_tls
+
+rules:
+  - MATCH,sshkit-generator
