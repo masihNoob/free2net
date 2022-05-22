@@ -80,7 +80,7 @@ proxies:
       port: 443,
       udp: true,
       type: trojan,
-      password: c2a0c870-cb33-11ec-a600-1239d0255272,
+      password: 4bb54ba0-d97e-11ec-b589-1239d0255272,
       sni: music.joox.com,
       skip-cert-verify: true,
     }
