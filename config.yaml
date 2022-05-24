@@ -111,10 +111,10 @@ proxy-groups:
     url: "http://hi.bonds.id/ping"
     interval: 300
     proxies:
-      # - id-rackhtj.bonds.id
-      # - w22-trojan.bonds.id
+      - id-rackhtj.bonds.id
+      - w22-trojan.bonds.id
       - trojan3.bonds.id
-      # - trojanid
+      #- trojanid
       # - id-lb.sshkit.org
       - rhey_vmess_ws_tls
 
