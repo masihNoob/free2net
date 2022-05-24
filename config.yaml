@@ -80,7 +80,7 @@ proxies:
       port: 443,
       udp: true,
       type: trojan,
-      password: 4bb54ba0-d97e-11ec-b589-1239d0255272,
+      password: cd43cb80-db2a-11ec-b631-1239d0255272,
       sni: music.joox.com,
       skip-cert-verify: true,
     }
@@ -93,7 +93,7 @@ proxy-groups:
     proxies:
       - id-rackhtj.bonds.id
       #- ws22
-      - id-lb.sshkit.org
+      #- id-lb.sshkit.org
       - rhey_vmess_ws_tls
 
 rules:
