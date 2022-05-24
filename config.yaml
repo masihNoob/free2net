@@ -50,16 +50,6 @@ proxies:
         },
     }
   - {
-      name: "ws22",
-      server: 172.104.41.185,
-      port: 443,
-      udp: true,
-      type: trojan,
-      password: a6e05de0-bce7-11ec-b1ae-1239d0255272,
-      sni: blog.joox.com,
-      skip-cert-verify: true,
-    }
-  - {
       name: rhey_vmess_ws_tls,
       server: 54.151.240.47,
       port: 80,
@@ -85,6 +75,26 @@ proxies:
       skip-cert-verify: true,
     }
   - {
+      name: w22-trojan.bonds.id,
+      server: 172.104.187.37,
+      port: 443,
+      udp: true,
+      type: trojan,
+      password: c2e16010-db5c-11ec-9674-1239d0255272,
+      sni: music.joox.com,
+      skip-cert-verify: true,
+    }
+  - {
+      name: trojan3.bonds.id,
+      server: 139.162.45.176,
+      port: 443,
+      udp: true,
+      type: trojan,
+      password: 5bd1b370-db5d-11ec-bf7e-1239d0255272,
+      sni: blog.joox.com,
+      skip-cert-verify: true,
+    }
+  - {
       name: id-rackhtj.bonds.id,
       server: 103.77.78.145,
       port: 443,
@@ -101,10 +111,11 @@ proxy-groups:
     url: "http://hi.bonds.id/ping"
     interval: 300
     proxies:
-      #- id-rackhtj.bonds.id
-      - trojanid
-      #- ws22
-      #- id-lb.sshkit.org
+      # - id-rackhtj.bonds.id
+      # - w22-trojan.bonds.id
+      - trojan3.bonds.id
+      # - trojanid
+      # - id-lb.sshkit.org
       - rhey_vmess_ws_tls
 
 rules:
