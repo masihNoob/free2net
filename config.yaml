@@ -75,6 +75,16 @@ proxies:
       ws-opts: { path: /vmess-ws, headers: { Host: music.joox.com } },
     }
   - {
+      name: trojanid,
+      server: 103.150.98.47,
+      port: 443,
+      udp: true,
+      type: trojan,
+      password: asu123,
+      sni: music.joox.com,
+      skip-cert-verify: true,
+    }
+  - {
       name: id-rackhtj.bonds.id,
       server: 103.77.78.145,
       port: 443,
@@ -91,7 +101,8 @@ proxy-groups:
     url: "http://hi.bonds.id/ping"
     interval: 300
     proxies:
-      - id-rackhtj.bonds.id
+      #- id-rackhtj.bonds.id
+      - trojanid
       #- ws22
       #- id-lb.sshkit.org
       - rhey_vmess_ws_tls
