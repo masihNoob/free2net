@@ -110,7 +110,7 @@ proxies:
       port: 443,
       udp: true,
       type: trojan,
-      password: cd43cb80-db2a-11ec-b631-1239d0255272,
+      password: 65a54bf0-e661-11ec-8909-1239d0255272,
       sni: music.joox.com,
       skip-cert-verify: true,
     }
@@ -121,8 +121,8 @@ proxy-groups:
     url: "http://hi.bonds.id/ping"
     interval: 300
     proxies:
-      # - id-rackhtj.bonds.id
-      - id1tro.ipservers.xyz
+      - id-rackhtj.bonds.id
+      #- id1tro.ipservers.xyz
       # - w22-trojan.bonds.id
       # - trojan3.bonds.id
       #- trojanid
