@@ -45,7 +45,7 @@ proxies:
       network: ws,
       ws-opts:
         {
-          path: /sshkit/lembayan/627f29ae79d4e/,
+          path: /sshkit/lembayan/62a09818e0b88/,
           headers: { Host: blog.joox.com },
         },
     }
@@ -65,14 +65,23 @@ proxies:
       ws-opts: { path: /vmess-ws, headers: { Host: music.joox.com } },
     }
   - {
-      name: trojanid,
-      server: 103.150.98.47,
-      port: 443,
-      udp: true,
-      type: trojan,
-      password: asu123,
-      sni: music.joox.com,
+      name: sg4-v2ray.sshkit.org,
+      server: 194.233.80.60,
+      port: 80,
+      type: vmess,
+      uuid: c6747da4-fb2e-4a2a-bdb7-8614bdd6b0b3,
+      sni: blog.joox.com,
+      alterId: 0,
+      cipher: auto,
+      tls,
       skip-cert-verify: true,
+      udp: true,
+      network: ws,
+      ws-opts:
+        {
+          path: /sshkit/5193804701/62a09a32a7552/,
+          headers: { Host: blog.joox.com },
+        },
     }
   - {
       name: w22-trojan.bonds.id,
@@ -121,12 +130,12 @@ proxy-groups:
     url: "http://hi.bonds.id/ping"
     interval: 300
     proxies:
-      - id-rackhtj.bonds.id
+      #- id-rackhtj.bonds.id
       #- id1tro.ipservers.xyz
       # - w22-trojan.bonds.id
       # - trojan3.bonds.id
-      #- trojanid
-      # - id-lb.sshkit.org
+      # - sg4-v2ray.sshkit.org
+      - id-lb.sshkit.org
       - rhey_vmess_ws_tls
 
 rules:
